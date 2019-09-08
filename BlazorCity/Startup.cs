@@ -32,6 +32,7 @@ namespace BlazorCity
               options.UseSqlite("Data Source=iran.db"));
 
             services.AddRazorPages();
+            services.AddControllers();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
         }
@@ -52,12 +53,12 @@ namespace BlazorCity
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();
+                endpoints.MapControllers();
                 endpoints.MapFallbackToPage("/_Host");
             });
         }
