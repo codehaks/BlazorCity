@@ -2,16 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Codehaks.IranData;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorCity.Controllers
 {
     public class CityController : Controller
     {
-        [Route("api/city")]
-        public IActionResult Index()
+        private readonly IranDbContext _db;
+        public CityController(IranDbContext db)
         {
-            return Ok("I'm working!");
+            _db = db;
+        }
+
+        [Route("api/city")]
+        public IActionResult GetCities(int provinceId)
+        {
+            return Ok(_db.Cities.Where(c=>c.ProvinceID==provinceId));
+        }
+
+        [Route("api/province")]
+        public IActionResult GetProvinces()
+        {
+
+            return Ok(_db.Provinces);
         }
     }
 }
